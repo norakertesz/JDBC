@@ -3,6 +3,7 @@ public class Main {
         // Press Alt+Eingabe with your caret at the highlighted text to see how
         // IntelliJ IDEA suggests fixing it.
         System.out.printf("Hello and welcome to JDBC!");
+        System.out.println();
 
         int i = 12;
 
@@ -10,10 +11,14 @@ public class Main {
 
 
         //Connect.connect();
-       //Connect.readKategorien();
-       Connect.displayBewertungenOrderByBewertung();
-Connect.printMetadata();
-
+        //Connect.readKategorien();
+        Connect.displayBewertungenOrderByBewertung();
+        System.out.println();
+        System.out.println("------------------Print Meradata:");
+        Connect.printMetadata();
+        System.out.println();
+        System.out.println("-------------------Aufgabe Mittwoch:");
+        Connect.AufgabeNachmittagMittwoch();
         Connect.displayBewertungenOrderByBewertung();
 
 
@@ -46,4 +51,4 @@ Connect.printMetadata();
         //  throw new RuntimeException(e);
     }
 
-    }
+}

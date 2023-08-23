@@ -99,6 +99,75 @@ public class Connect {
             }
         }
     }
+    public static void AufgabeNachmittagMittwoch() {
+        //
+        //1. Aufgabe - neue Tabelle in SQLite Studio - beispiele Hinzufügen über SQLite
+        //Jede Bewertung soll kommentiert werden können
+        //1	  1	7	fasst perfekt - Bewertungstabelle
+
+        //KommentareZuBewerungen
+        //1    1    ich stimme dir zu    JG
+        //2    1    bin ähnlicher Meinung XY
+        //3    1    bin völlig anderer Meinung ABC
+
+        //neue Methode - Zeige alle Kommentare pro Bewertung JOIN Bewertungen und KommentareZuBewertungen
+
+        //11:45 12:30 --- heute um 13:00 Uhr Auflösung
+        /*CREATE TABLE KommentareZuBewertung
+(
+    KommentarId INTEGER PRIMARY KEY AUTOINCREMENT,
+    Kommentar varchar(50),
+    BewertungsId int,
+
+    CONSTRAINT fk_kommentare FOREIGN KEY (
+        BewertungsId
+    )
+    REFERENCES Bewertungen (BewertungsId)
+
+
+)*/
+
+        Connection conn = null;
+        try {
+            // db parameters
+            String url = "jdbc:sqlite:C:\\Users\\kerte\\Downloads\\Campus02JDBC.db";
+            //Wie ist ein connection-String aufgebaut - DriverName:Filename
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+
+            System.out.println("Connection to SQLite has been established.");
+
+            Statement stmt = conn.createStatement();
+
+            String query = "SELECT b.Kommentar AS KommentarBewertung, b.Punkte, k.Kommentar\n" +
+                    " FROM Bewertungen b JOIN KommentareZuBewertung k\n" +
+                    " ON b.BewertungsID = k.BewertungsID\n" +
+                    " ORDER BY Punkte";
+            ResultSet rs = stmt.executeQuery(query);
+
+
+            while (rs.next()) {
+                System.out.printf("Kommentar: %s Punkte: %d Kommentar %s %n",
+                        rs.getString("KommentarBewertung"),
+                        rs.getInt("Punkte"),
+                        rs.getString("Kommentar")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+
+    }
 
     public static void displayBewertungenOrderByBewertung() {
         //1. Connection aufbauen
