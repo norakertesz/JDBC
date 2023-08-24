@@ -46,9 +46,14 @@ public class Main {
                 System.out.printf("%s %n", rs.getString("Schlagwort"));
             }*/
 
-        helper.closeConnection();
+
         //} catch (SQLException e) {
         //  throw new RuntimeException(e);
+        System.out.println();
+        System.out.println("printAllBewertungenMinPunkteHoerAls(3);");
+        helper.printAllBewertungenMinPunkteHoerAls(3);
+        helper.closeConnection();
+
     }
 
 }

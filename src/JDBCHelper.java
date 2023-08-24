@@ -48,6 +48,30 @@ public class JDBCHelper {
         }
     }
 
+    public void printAllBewertungenMinPunkteHoerAls(int mindestPunkte) {
+
+        String dynamicQuery = "SELECT BewertungsId, Punkte, Kommentar FROM Bewertungen WHERE Punkte > ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(dynamicQuery);
+            preparedStatement.setInt(1, mindestPunkte);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                System.out.printf("ID %d Punkte %d Kommentar %s %n",
+                        rs.getInt("BewertungsID"),
+                        rs.getInt("Punkte"),
+                        rs.getString("Kommentar")
+                );
+            }
+
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public void printAlleKommentare() {
         try {
             //alle Kommentare aus der Tabelle KommentareZuBewertungen sollen ausgegeben werden
