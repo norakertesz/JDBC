@@ -1,14 +1,10 @@
 import java.sql.*;
 
-/**
- *
- * @author sqlitetutorial.net
- */
 public class Connect {
     /**
      * Connect to a sample database
      */
-    public static void connect() {
+    public static void connect() { // Diese Methode stellt eine Verbindung zur SQLite-Datenbank her und gibt eine Bestätigung aus, wenn die Verbindung erfolgreich hergestellt wurde.
         Connection conn = null;
         try {
             // db parameters
@@ -18,7 +14,8 @@ public class Connect {
             //Wie ist ein connection-String aufgebaut - DriverName:Filename
             // create a connection to the database
             //3. Get Connection
-            conn = DriverManager.getConnection(url);
+            conn = DriverManager.getConnection(url);//DriverManager ist eine Klasse in der JDBC-API, die für die Verwaltung der Datenbanktreiber verantwortlich ist.
+            //Die Methode getConnection von DriverManager wird verwendet, um eine Verbindung zur Datenbank herzustellen. Sie akzeptiert eine Zeichenfolge als Parameter, die als Verbindungs-URL (Uniform Resource Locator) dient.
 
             System.out.println("Connection to SQLite has been established.");
 
@@ -76,12 +73,12 @@ public class Connect {
             Statement stmt = conn.createStatement();
 
             String query = "SELECT UrlaubsID, Schlagwort, UrlaubskategorieID FROM Urlaube";
-            ResultSet rs = stmt.executeQuery( query );
+            ResultSet rs = stmt.executeQuery(query);
 
             //rs ist ein Zeiger auf eine virtuelle Tabelle,
             // zeigt nach dem Öffnen auf den Datensatz - 1
 
-            while ( rs.next() ) {
+            while (rs.next()) {
                 System.out.printf("Schlagwort: %s die UrlaubsID ist: %d %n",
                         rs.getString("Schlagwort"),
                         rs.getInt("UrlaubsID"));
@@ -99,6 +96,7 @@ public class Connect {
             }
         }
     }
+
     public static void AufgabeNachmittagMittwoch() {
         //
         //1. Aufgabe - neue Tabelle in SQLite Studio - beispiele Hinzufügen über SQLite
@@ -139,7 +137,7 @@ public class Connect {
 
             Statement stmt = conn.createStatement();
 
-            String query = "SELECT b.Kommentar AS KommentarBewertung, b.Punkte, k.Kommentar\n" +
+            String query = "SELECT b.Kommentar AS KommentarBewertung, b.Punkte, k.Kommentar, k.Person\n" +
                     " FROM Bewertungen b JOIN KommentareZuBewertung k\n" +
                     " ON b.BewertungsID = k.BewertungsID\n" +
                     " ORDER BY Punkte";
@@ -147,10 +145,11 @@ public class Connect {
 
 
             while (rs.next()) {
-                System.out.printf("Kommentar: %s Punkte: %d Kommentar %s %n",
+                System.out.printf("Kommentar: %s Punkte: %d Kommentar %s Person %s%n",
                         rs.getString("KommentarBewertung"),
                         rs.getInt("Punkte"),
-                        rs.getString("Kommentar")
+                        rs.getString("Kommentar"),
+                        rs.getString("Person")
                 );
             }
 
@@ -173,8 +172,10 @@ public class Connect {
         //1. Connection aufbauen
         //2. Resultset erzeugen
         //3. Ausgabe der Bewertungen inkl. Schlagwort aus der Tabelle Urlaube mit printf
+
         Connection conn = null;
         try {
+
             // db parameters
             String url = "jdbc:sqlite:C:\\Users\\kerte\\Downloads\\Campus02JDBC.db";
             //Wie ist ein connection-String aufgebaut - DriverName:Filename
@@ -185,19 +186,20 @@ public class Connect {
 
             Statement stmt = conn.createStatement();
 
-            String query = "SELECT Urlaube.Schlagwort, Bewertungen.Punkte, Bewertungen.Kommentar FROM Urlaube INNER JOIN Bewertungen ON Urlaube.UrlaubsID = Bewertungen.UrlaubsID"+
+            String query = "SELECT u.Schlagwort, b.Punkte, b.Kommentar\n" +
+                    "FROM Urlaube u JOIN Bewertungen b\n" +
+                    "ON u.UrlaubsID = b.UrlaubsId"+
                     " ORDER BY Punkte DESC";
-            ResultSet rs = stmt.executeQuery( query );
+
+            ResultSet rs = stmt.executeQuery(query);
 
             //rs ist ein Zeiger auf eine virtuelle Tabelle,
             // zeigt nach dem Öffnen auf den Datensatz - 1
-//            String query2 = "SELECT Schlagwort FROM Urlaube";
-//            ResultSet rs2 = stmt.executeQuery( query2 );
-            while ( rs.next()) {
-                System.out.printf("Die Punkte sind: %s | Schlagwort:%s | Kommentare:%s%n",
 
-                        rs.getInt("Punkte"),
+            while (rs.next()) {
+                System.out.printf("Schlagwort: %s Punkte: %d Kommentar %s %n",
                         rs.getString("Schlagwort"),
+                        rs.getInt("Punkte"),
                         rs.getString("Kommentar"));
             }
 
@@ -212,7 +214,9 @@ public class Connect {
                 System.out.println(ex.getMessage());
             }
         }
+
     }
+
 
     public static void printMetadata() {
         Connection conn = null;
@@ -246,6 +250,3 @@ public class Connect {
         }
     }
 }
-
-
-
