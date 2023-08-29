@@ -1,4 +1,5 @@
 import models.Bewertung;
+import models.Kunde;
 import models.Urlaub;
 import models.Urlaubskategorien;
 
@@ -15,27 +16,50 @@ public class Main {
         // IntelliJ IDEA suggests fixing it.
         System.out.printf("Hello and welcome to JDBC!");
 
-        int i = 12;
-
-        int erg = 23 + i;
-
-        System.out.println("Aufgabe Mittwoch");
-        Connect.AufgabeNachmittagMittwoch();
-
-        Connect.displayBewertungenOrderByBewertung();
-
+//        int i = 12;
+//
+//        int erg = 23 + i;
+//
+//        System.out.println("Aufgabe Mittwoch");
+//        Connect.AufgabeNachmittagMittwoch();
+//
+//        Connect.displayBewertungenOrderByBewertung();
+//
 
         //Connect.connect();
         //  Connect.readKategorien();
         //  Connect.printMetadata();
 
-        String url = "jdbc:sqlite:C:\\Users\\kerte\\Downloads\\Campus02JDBC.db";
+        String url = "jdbc:sqlite:C:\\Users\\kerte\\Downloads\\Campu02JDBC.db";
+        String url2 = "jdbc:sqlite:C:\\Users\\kerte\\Downloads\\eLearningDB29.db";
+        eLearning29 myHelper =new eLearning29(url2);
+        //myHelper.createTableKunden();
+        //System.out.printf("Tabelle Kunden wurde erzeugt");
 
+        Kunde k =new Kunde();
+//        k.setVorname("Victoria");
+//        k.setBonuspunkte(900);
+//        myHelper.insertKunde(k);
+
+        System.out.printf("Kunden %s wurde hinzugefügt, die neue id ist %d",k.getVorname(), k.getKundenid());
         System.out.printf("%nmit Helper %n");
-
+        myHelper.deleteKunde(8);
         //try {
+        ArrayList<Kunde> allKunden =myHelper.getAllKunden();
+        System.out.println(allKunden);
+        ArrayList<Kunde> allKundenMitTelefonnummer = myHelper.getAllKundenMitTelefon();
+        System.out.println("allKundenMitTelefonnummer"+"\n"+allKundenMitTelefonnummer);
+        double durchschnittsBonuspunkte = myHelper.getDurchschnittsBonuspunkte();
+        System.out.println("durchschnittsBonuspunkte:" + durchschnittsBonuspunkte);
+        Kunde kundeMitMeistenBonuspunkten= myHelper.kundeMitMeistenBonuspunkten();
+        System.out.println("kundeMitMeistenBonuspunkten:" + kundeMitMeistenBonuspunkten);
 
-        JDBCHelper helper = new JDBCHelper(url);
+
+
+
+
+
+                JDBCHelper helper = new JDBCHelper(url);
 
             /*
             System.out.printf("%n alle Bewertugen mit Helper %n");
@@ -88,27 +112,27 @@ public class Main {
 
 
         //UrlaubsId wird von der DB über AUTOINCREMENT befüllt
-        Bewertung b1 =new Bewertung(-1,1,4,"so lala");
-        helper.insertBewertung(b1);
-        System.out.printf("Ihre Bewertung mit dem Kommentar %s wurde unter der id %d gespeichert",
-                b1.getKommentar(),
-                b1.getBewertungsId());
-
-
-
-
-        Bewertung bSuchen = helper.getBewertungById(9);
-
-        System.out.println("\n sucherergbnis von 10 \n" + bSuchen);
-
-        ArrayList<Bewertung> alleBewertungen = helper.getAlleBewertungen();
-
-        System.out.println("\nAlle Bewertungen\n");
-        System.out.println(alleBewertungen);
-
-        System.out.println("\nAlle Urlaube mit Schlagwort\n");
-        ArrayList<Urlaub> suchergebnis =  helper.findUrlaubBySchlagwort("und");
-        System.out.println(suchergebnis);
+//        Bewertung b1 =new Bewertung(-1,1,4,"so lala");
+//        helper.insertBewertung(b1);
+//        System.out.printf("Ihre Bewertung mit dem Kommentar %s wurde unter der id %d gespeichert",
+//                b1.getKommentar(),
+//                b1.getBewertungsId());
+//
+//
+//
+//
+//        Bewertung bSuchen = helper.getBewertungById(9);
+//
+//        System.out.println("\n sucherergbnis von 10 \n" + bSuchen);
+//
+//        ArrayList<Bewertung> alleBewertungen = helper.getAlleBewertungen();
+//
+//        System.out.println("\nAlle Bewertungen\n");
+//        System.out.println(alleBewertungen);
+//
+//        System.out.println("\nAlle Urlaube mit Schlagwort\n");
+//        ArrayList<Urlaub> suchergebnis =  helper.findUrlaubBySchlagwort("und");
+//        System.out.println(suchergebnis);
 
 
         //1. AufgabefindUrlaubBySchlagwort

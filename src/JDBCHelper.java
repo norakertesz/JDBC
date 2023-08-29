@@ -9,7 +9,7 @@ import java.util.ArrayList;
 // Das erleichtert die Arbeit und reduziert die Möglichkeit von Fehlern beim Umgang mit Datenbanken in Ihrer Java-Anwendung.
 public class JDBCHelper {
     private Connection connection;//Die Klasse enthält eine Instanzvariable connection vom Typ Connection, um die Verbindung zur Datenbank zu halten.
-
+//Ich kann statement schicken
     public JDBCHelper(String url) {//Der Konstruktor JDBCHelper(String url) initialisiert die Verbindung zur Datenbank, indem er DriverManager.getConnection(url) aufruft.
         try {
             connection = DriverManager.getConnection(url);
