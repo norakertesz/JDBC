@@ -294,7 +294,7 @@ public class eLearning29 {
     public  void deleteTelefonnummernAndKunde(int kundenId) {
 
         String update1 = "DELETE FROM Telefonnummern WHERE KundenId = ?";
-        String update2 = "DELETE FROMX Kunden WHERE KundenId = ?";
+        String update2 = "DELETE FROM Kunden WHERE KundenId = ?";
 
         try {
 
@@ -302,7 +302,7 @@ public class eLearning29 {
 
             PreparedStatement pStmt1 = connection.prepareStatement(update1);
             pStmt1.setInt(1, kundenId);
-            pStmt1.executeUpdate(); //Bei Autocomiit wird jede Ausführung sofort "festgeschrieben", kann nich rückgängig gemacht werde
+            pStmt1.executeUpdate(); //Bei Autocomit wird jede Ausführung sofort "festgeschrieben", kann nich rückgängig gemacht werde
 
             PreparedStatement pStmt2 = connection.prepareStatement(update2);
             pStmt2.setInt(1, kundenId);
@@ -325,5 +325,31 @@ public class eLearning29 {
 
         }
         ;
+    }
+    public void printKundenColumns(){
+
+        try {
+            ResultSet rs = executeQuery( "SELECT * FROM Kunden" );
+            ResultSetMetaData meta = rs.getMetaData();
+
+            int numerics = 0;
+
+            for ( int i = 1; i <= meta.getColumnCount(); i++ )
+            {
+                System.out.printf( "%-20s %-20s%n", meta.getColumnLabel( i ),
+                        meta.getColumnTypeName( i ) );
+
+                if ( meta.isSigned( i ) )
+                    numerics++;
+            }
+
+            System.out.println();
+            System.out.println( "Spalten: " + meta.getColumnCount() +
+                    ", Numerisch: " + numerics );
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

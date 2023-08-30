@@ -32,34 +32,32 @@ public class Main {
 
         String url = "jdbc:sqlite:C:\\Users\\kerte\\Downloads\\Campu02JDBC.db";
         String url2 = "jdbc:sqlite:C:\\Users\\kerte\\Downloads\\eLearningDB29.db";
-        eLearning29 myHelper =new eLearning29(url2);
+        eLearning29 myHelper = new eLearning29(url2);
         //myHelper.createTableKunden();
         //System.out.printf("Tabelle Kunden wurde erzeugt");
 
-        Kunde k =new Kunde();
+        Kunde k = new Kunde();
 //        k.setVorname("Victoria");
 //        k.setBonuspunkte(900);
 //        myHelper.insertKunde(k);
 
-        System.out.printf("Kunden %s wurde hinzugefügt, die neue id ist %d",k.getVorname(), k.getKundenid());
+        System.out.printf("Kunden %s wurde hinzugefügt, die neue id ist %d", k.getVorname(), k.getKundenid());
         System.out.printf("%nmit Helper %n");
         myHelper.deleteKunde(8);
         //try {
-        ArrayList<Kunde> allKunden =myHelper.getAllKunden();
+        ArrayList<Kunde> allKunden = myHelper.getAllKunden();
         System.out.println(allKunden);
         ArrayList<Kunde> allKundenMitTelefonnummer = myHelper.getAllKundenMitTelefon();
-        System.out.println("allKundenMitTelefonnummer"+"\n"+allKundenMitTelefonnummer);
+        System.out.println("allKundenMitTelefonnummer" + "\n" + allKundenMitTelefonnummer);
         double durchschnittsBonuspunkte = myHelper.getDurchschnittsBonuspunkte();
         System.out.println("durchschnittsBonuspunkte:" + durchschnittsBonuspunkte);
-        Kunde kundeMitMeistenBonuspunkten= myHelper.kundeMitMeistenBonuspunkten();
+        Kunde kundeMitMeistenBonuspunkten = myHelper.kundeMitMeistenBonuspunkten();
         System.out.println("kundeMitMeistenBonuspunkten:" + kundeMitMeistenBonuspunkten);
 
+        myHelper.printKundenColumns();
 
 
-
-
-
-                JDBCHelper helper = new JDBCHelper(url);
+        JDBCHelper helper = new JDBCHelper(url);
 
             /*
             System.out.printf("%n alle Bewertugen mit Helper %n");
@@ -108,7 +106,6 @@ public class Main {
         */
 
         //Auflösung um 12:40 Uhr - Prüfungsgespräch oder Prüfung
-
 
 
         //UrlaubsId wird von der DB über AUTOINCREMENT befüllt
